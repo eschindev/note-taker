@@ -54,18 +54,6 @@ app.delete('/api/notes/:id', (req, res) => {
     res.json('Note deleted');
 });
 
-
-
-
-
-
-
-
-
-
-
-
-
 app.get('/*', (req, res) =>
 res.sendFile(path.join(__dirname, '/public/index.html'))
 );
