@@ -1,7 +1,7 @@
 const express = require('express');
 const path = require('path');
 const { v4: uuidv4 } = require('uuid');
-const { readFromFile, writeToFile, readAndAppend} = require('./helpers/fsUtils.js');
+const { readFromFile, readAndAppend, readAndDelete} = require('./helpers/fsUtils.js');
 
 const notes = require('./db/db.json');
 
@@ -44,13 +44,14 @@ app.post('/api/notes', (req, res) => {
         readAndAppend(newNote, './db/db.json');
         res.json('Note saved');
     } else {
-        res.errored('Saving note failed');
+        res.send('Saving note failed');
     }
 });
 
 app.delete('/api/notes/:id', (req, res) => {
     console.info(`${req.method} request received to /api/notes`);
-    // implement delete notes here
+    readAndDelete(req.params.id, './db/db.json');
+    res.json('Note deleted');
 });
 
 
